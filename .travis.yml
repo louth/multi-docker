@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t louth/client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true louth/client-test npm test -- --coverage
+
+after_success:
+  - docker build -t louth/multi-nginx ./nginx
+  - docker build -t louth/multi-server ./server
+  - docker build -t louth/multi-client ./client
+  - docker build -t louth/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push louth/multi-nginx
+  - docker push louth/multi-server
+  - docker push louth/multi-client
+  - docker push louth/multi-worker
