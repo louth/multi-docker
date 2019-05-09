@@ -18,3 +18,16 @@ after_success:
   - docker push louth/multi-server
   - docker push louth/multi-client
   - docker push louth/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: ap-southeast-2
+  app: multi-docker
+  env: MultiDocker-env
+  bucket-name: elasticbeanstalk-ap-southeast-2-733387177202
+  bucket-path: multi-docker
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
