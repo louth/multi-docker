@@ -2,10 +2,10 @@ sudo: required
 services:
   - docker
 
-before_install:
+# before_install:
   # - docker build -t louth/client-test -f ./client/Dockerfile.dev ./client
 
-script:
+# script:
   # - docker run -e CI=true louth/client-test npm test -- --coverage
 
 after_success:
