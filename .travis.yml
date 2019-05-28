@@ -8,7 +8,8 @@ services:
 # script:
   # - docker run -e CI=true louth/client-test npm test -- --coverage
 
-after_success:
+# after_success:
+script:
   - docker build -t louth/multi-nginx ./nginx
   - docker build -t louth/multi-server ./server
   - docker build -t louth/multi-client ./client
